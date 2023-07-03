@@ -8,7 +8,7 @@ public class account {
     private String nickname;
     private String password;
     private String phone;
-    private int headPicture;
+    private int head_picture;
     private int stu_id;
 
     public int getId() {
@@ -43,12 +43,12 @@ public class account {
         this.phone = phone;
     }
 
-    public int getHeadPicture() {
-        return headPicture;
+    public int getHead_picture() {
+        return head_picture;
     }
 
-    public void setHeadPicture(int headPicture) {
-        this.headPicture = headPicture;
+    public void setHead_picture(int head_picture) {
+        this.head_picture = head_picture;
     }
 
     public int getStu_id() {
@@ -66,7 +66,7 @@ public class account {
                 ", nickname='" + nickname + '\'' +
                 ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
-                ", headPicture=" + headPicture +
+                ", head_picture=" + head_picture +
                 ", stu_id=" + stu_id +
                 '}';
     }

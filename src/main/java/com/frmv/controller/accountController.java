@@ -28,7 +28,7 @@ public class accountController {
         return accounts;
     }
 
-    @ApiOperation(value = "登录账号")
+    @ApiOperation(value = "登录账号", notes = "param: phone, password")
     @PostMapping("/login")
     public result login(@RequestBody account account){
         result res = new result();
@@ -52,10 +52,11 @@ public class accountController {
         }
     }
 
-    @ApiOperation(value = "注册账号")
+    @ApiOperation(value = "注册账号", notes = "param: account对象")
     @PostMapping("/signup")
     public result signup(@RequestBody account account){
         result res = new result();
+        System.out.println(account.toString());
         try{
             int i  = mapper.insert(account);
             if(i > 0){
@@ -74,7 +75,7 @@ public class accountController {
         }
     }
 
-    @ApiOperation(value = "注销账号")
+    @ApiOperation(value = "注销账号", notes = "param: phone")
     @PostMapping("/logoff")
     public result logoff(@RequestBody account account){
         result res = new result();
@@ -96,78 +97,17 @@ public class accountController {
         }
     }
 
-    @ApiOperation(value = "修改昵称")
-    @PostMapping("/change/nickname")
-    public result changeNickname(@RequestBody change change){
+    @ApiOperation(value = "修改信息", notes = "param: account对象, oldPhone")
+    @PostMapping("/change")
+    public result change(@RequestBody change change){
         result res = new result();
+        account account = new account();
+        account.setNickname(change.getNickname());
+        account.setPassword(change.getPassword());
+        account.setPhone(change.getPhone());
+        String oldPhone = change.getOldPhone();
         try{
-            int i  = mapper.changeNickname(change.getPhone(), change.getNewNickname());
-            if(i > 0){
-                res.setStatus(true);
-                res.setResult("修改成功！");
-                return res;
-            }
-            res.setStatus(false);
-            res.setResult("修改失败！");
-            return res;
-        } catch (Exception e){
-            e.printStackTrace();
-            res.setStatus(false);
-            res.setResult("出现异常: " + e.getMessage());
-            return res;
-        }
-    }
-
-    @ApiOperation(value = "修改密码")
-    @PostMapping("/change/password")
-    public result changePassword(@RequestBody change change){
-        result res = new result();
-        try{
-            int i  = mapper.changePassword(change.getPhone(), change.getNewPassword());
-            if(i > 0){
-                res.setStatus(true);
-                res.setResult("修改成功！");
-                return res;
-            }
-            res.setStatus(false);
-            res.setResult("修改失败！");
-            return res;
-        } catch (Exception e){
-            e.printStackTrace();
-            res.setStatus(false);
-            res.setResult("出现异常: " + e.getMessage());
-            return res;
-        }
-    }
-
-    @ApiOperation(value = "修改手机号码")
-    @PostMapping("/change/phone")
-    public result changePhone(@RequestBody change change){
-        result res = new result();
-        try{
-            int i  = mapper.changePhone(change.getPhone(), change.getNewPhone());
-            if(i > 0){
-                res.setStatus(true);
-                res.setResult("修改成功！");
-                return res;
-            }
-            res.setStatus(false);
-            res.setResult("修改失败！");
-            return res;
-        } catch (Exception e){
-            e.printStackTrace();
-            res.setStatus(false);
-            res.setResult("出现异常: " + e.getMessage());
-            return res;
-        }
-    }
-
-    @ApiOperation(value = "修改头像")
-    @PostMapping("/change/headPicture")
-    public result changeHeadPicture(@RequestBody change change){
-        result res = new result();
-        try{
-            int i  = mapper.changeHeadPicture(change.getPhone(), change.getNewHeadPicture());
+            int i  = mapper.change(account, oldPhone);
             if(i > 0){
                 res.setStatus(true);
                 res.setResult("修改成功！");

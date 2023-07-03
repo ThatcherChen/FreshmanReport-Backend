@@ -2,6 +2,7 @@ package com.frmv.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.frmv.entity.account;
+import com.frmv.entity.account;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -18,15 +19,7 @@ public interface accountMapper extends BaseMapper<account> {
     @Delete("delete from account where phone=#{phone}")
     int logoff(String phone);
 
-    @Update("update account set nickname=#{newNickname} where phone=#{phone}")
-    int changeNickname(String phone, String newNickname);
+    @Update("update account set nickname=#{account.nickname}, password=#{account.password}, phone=#{account.phone} where phone=#{oldPhone}")
+    int change(account account, String oldPhone);
 
-    @Update("update account set password=#{newPassword} where phone=#{phone}")
-    int changePassword(String phone, String newPassword);
-
-    @Update("update account set phone=#{newPhone} where phone=#{phone}")
-    int changePhone(String phone, String newPhone);
-
-    @Update("update account set headPicture=#{newHeadPicture} where phone=#{phone}")
-    int changeHeadPicture(String phone, String newHeadPicture);
 }

@@ -1,14 +1,42 @@
 package com.frmv.entity;
 
 import io.swagger.annotations.ApiModel;
+import lombok.Data;
 
+@Data
 @ApiModel(value = "change", description = "修改数据")
 public class change {
+    private int id;
+    private String nickname;
+    private String password;
     private String phone;
-    private String newNickname;
-    private String newPassword;
-    private String newPhone;
-    private String newHeadPicture;
+    private int head_picture;
+    private int stu_id;
+    private String oldPhone;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getPhone() {
         return phone;
@@ -18,46 +46,40 @@ public class change {
         this.phone = phone;
     }
 
-    public String getNewNickname() {
-        return newNickname;
+    public int getHead_picture() {
+        return head_picture;
     }
 
-    public void setNewNickname(String newNickname) {
-        this.newNickname = newNickname;
+    public void setHead_picture(int head_picture) {
+        this.head_picture = head_picture;
     }
 
-    public String getNewPassword() {
-        return newPassword;
+    public int getStu_id() {
+        return stu_id;
     }
 
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
+    public void setStu_id(int stu_id) {
+        this.stu_id = stu_id;
     }
 
-    public String getNewPhone() {
-        return newPhone;
+    public String getOldPhone() {
+        return oldPhone;
     }
 
-    public void setNewPhone(String newPhone) {
-        this.newPhone = newPhone;
-    }
-
-    public String getNewHeadPicture() {
-        return newHeadPicture;
-    }
-
-    public void setNewHeadPicture(String newHeadPicture) {
-        this.newHeadPicture = newHeadPicture;
+    public void setOldPhone(String oldPhone) {
+        this.oldPhone = oldPhone;
     }
 
     @Override
     public String toString() {
         return "change{" +
-                "phone='" + phone + '\'' +
-                ", newNickname='" + newNickname + '\'' +
-                ", newPassword='" + newPassword + '\'' +
-                ", newPhone='" + newPhone + '\'' +
-                ", newHeadPicture='" + newHeadPicture + '\'' +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", head_picture=" + head_picture +
+                ", stu_id=" + stu_id +
+                ", oldPhone='" + oldPhone + '\'' +
                 '}';
     }
 }

@@ -1,13 +1,11 @@
 package com.frmv.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import io.swagger.annotations.ApiModel;
 
 import java.util.Date;
 import java.util.List;
 
-@ApiModel(value = "student", description = "学生信息")
-public class student {
+public class information {
     private int id;
     private String name;
     private String gender;
@@ -15,6 +13,7 @@ public class student {
     private String region;
     private Date birthday;
     private String major;
+    private List<String> interest;
 
     public int getId() {
         return id;
@@ -40,11 +39,11 @@ public class student {
         this.gender = gender;
     }
 
-    public String getid_number() {
+    public String getId_number() {
         return id_number;
     }
 
-    public void setid_number(String id_number) {
+    public void setId_number(String id_number) {
         this.id_number = id_number;
     }
 
@@ -72,9 +71,17 @@ public class student {
         this.major = major;
     }
 
+    public List<String> getInterest() {
+        return interest;
+    }
+
+    public void setInterest(List<String> interest) {
+        this.interest = interest;
+    }
+
     @Override
     public String toString() {
-        return "student{" +
+        return "information{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
@@ -82,6 +89,7 @@ public class student {
                 ", region='" + region + '\'' +
                 ", birthday=" + birthday +
                 ", major='" + major + '\'' +
+                ", interest=" + interest +
                 '}';
     }
 }
