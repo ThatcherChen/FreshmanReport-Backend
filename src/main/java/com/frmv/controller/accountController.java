@@ -28,7 +28,7 @@ public class accountController {
         return accounts;
     }
 
-    @ApiOperation(value = "登录账号", notes = "param: phone, password")
+    @ApiOperation(value = "登录账号", notes = "输入: phone, password")
     @PostMapping("/login")
     public result login(@RequestBody account account){
         result res = new result();

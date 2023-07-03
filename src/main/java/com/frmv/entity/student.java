@@ -15,6 +15,8 @@ public class student {
     private String region;
     private Date birthday;
     private String major;
+    private String interests;
+    private String report_time;
 
     public int getId() {
         return id;
@@ -40,11 +42,11 @@ public class student {
         this.gender = gender;
     }
 
-    public String getid_number() {
+    public String getId_number() {
         return id_number;
     }
 
-    public void setid_number(String id_number) {
+    public void setId_number(String id_number) {
         this.id_number = id_number;
     }
 
@@ -72,6 +74,22 @@ public class student {
         this.major = major;
     }
 
+    public String getInterests() {
+        return interests;
+    }
+
+    public void setInterests(String interests) {
+        this.interests = interests;
+    }
+
+    public String getReport_time() {
+        return report_time;
+    }
+
+    public void setReport_time(String report_time) {
+        this.report_time = report_time;
+    }
+
     @Override
     public String toString() {
         return "student{" +
@@ -82,6 +100,8 @@ public class student {
                 ", region='" + region + '\'' +
                 ", birthday=" + birthday +
                 ", major='" + major + '\'' +
+                ", interests='" + interests + '\'' +
+                ", report_time='" + report_time + '\'' +
                 '}';
     }
 }
