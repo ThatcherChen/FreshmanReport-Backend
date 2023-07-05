@@ -14,12 +14,18 @@ import java.util.List;
 public interface accountMapper extends BaseMapper<account> {
 
     @Select("select * from account where phone=#{phone} and password=#{password}")
-    List<account> login(String phone, String password);
+    account login(String phone, String password);
 
     @Delete("delete from account where phone=#{phone}")
     int logoff(String phone);
 
     @Update("update account set nickname=#{account.nickname}, password=#{account.password}, phone=#{account.phone} where phone=#{oldPhone}")
     int change(account account, String oldPhone);
+
+    @Select("select * from account where phone = #{phone}")
+    account queryAccount(String phone);
+
+    @Select("select stu_id from account where phone = #{phone}")
+    int queryStu_id(String phone);
 
 }

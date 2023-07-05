@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 @Data
-@ApiModel(value = "change", description = "修改数据")
+@ApiModel(value = "change", description = "修改账号信息")
 public class change {
     private int id;
     private String nickname;

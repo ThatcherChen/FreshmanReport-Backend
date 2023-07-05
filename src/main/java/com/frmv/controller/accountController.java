@@ -21,13 +21,6 @@ public class accountController {
     @Autowired
     private accountMapper mapper;
 
-    @ApiOperation(value = "查询所有数据")
-    @GetMapping("/account/selectAll")
-    public List selectAll(){
-        List<account> accounts = mapper.selectList(null);
-        return accounts;
-    }
-
     @ApiOperation(value = "登录账号", notes = "输入: phone, password")
     @PostMapping("/login")
     public result login(@RequestBody account account){
@@ -35,10 +28,10 @@ public class accountController {
         String phone = account.getPhone();
         String password = account.getPassword();
         try{
-            List<account> account1 = mapper.login(phone, password);
-            if(account1.size() < 1){
+            account account1 = mapper.login(phone, password);
+            if(account1 == null){
                 res.setStatus(false);
-                res.setResult("结果为空！");
+                res.setResult("手机号码或是密码错误！");
                 return res;
             }
             res.setStatus(true);
