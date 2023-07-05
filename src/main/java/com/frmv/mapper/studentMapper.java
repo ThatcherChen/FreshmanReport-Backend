@@ -29,9 +29,16 @@ public interface studentMapper extends BaseMapper<student> {
     @Select("SELECT major, COUNT(*) AS count FROM student GROUP BY major")
     List<major> countMajor();
 
+    @Select("SELECT major, gender, COUNT(*) AS count FROM student WHERE gender IN ('男', '女') GROUP BY major, gender")
+    List<majorGender> countMajorGender();
+
     @Select("SELECT interests from student where interests is not null")
     List<String> queryInterest();
 
     @Select("SELECT region from student where region is not null")
     List<String> queryRegion();
+
+    @Select("select * from (SELECT * FROM student ORDER BY id DESC LIMIT #{batch}) AS subQuery ORDER BY subQuery.id ASC")
+    List<student> queryBatchStudent(int batch);
+
 }
