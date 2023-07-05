@@ -23,11 +23,18 @@ public class studentController {
 
     @Autowired
     private studentMapper stuMapper;
-
     @Autowired
     private accountMapper accMapper;
 
-    @ApiOperation(value = "信息收集并且自动绑定账号", notes = "param: student对象+phone")
+    @ApiOperation(value = "查询收集到的所有学生信息", notes = "输入: 无")
+    @GetMapping("/queryAll")
+    public List<student> queryAll() {
+        List<student> studentList = new ArrayList<>();
+        studentList = stuMapper.selectList(null);
+        return studentList;
+    }
+
+    @ApiOperation(value = "信息收集并且自动绑定账号", notes = "输入: student对象+phone")
     @PostMapping("/infoCollect")
     public result infoCollect(@RequestBody bind bind) {
         result res = new result();
