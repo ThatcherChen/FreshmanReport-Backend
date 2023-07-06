@@ -2,7 +2,6 @@ package com.frmv.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.frmv.entity.account;
-import com.frmv.entity.account;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;

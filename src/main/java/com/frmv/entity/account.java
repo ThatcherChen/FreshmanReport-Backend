@@ -8,8 +8,8 @@ public class account {
     private String nickname;
     private String password;
     private String phone;
-    private int head_picture;
-    private int stu_id;
+    private int headPicture;
+    private int stuId;
 
     public int getId() {
         return id;
@@ -43,20 +43,20 @@ public class account {
         this.phone = phone;
     }
 
-    public int getHead_picture() {
-        return head_picture;
+    public int getHeadPicture() {
+        return headPicture;
     }
 
-    public void setHead_picture(int head_picture) {
-        this.head_picture = head_picture;
+    public void setHeadPicture(int headPicture) {
+        this.headPicture = headPicture;
     }
 
-    public int getStu_id() {
-        return stu_id;
+    public int getStuId() {
+        return stuId;
     }
 
-    public void setStu_id(int stu_id) {
-        this.stu_id = stu_id;
+    public void setStuId(int stuId) {
+        this.stuId = stuId;
     }
 
     @Override
@@ -66,8 +66,8 @@ public class account {
                 ", nickname='" + nickname + '\'' +
                 ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
-                ", head_picture=" + head_picture +
-                ", stu_id=" + stu_id +
+                ", headPicture=" + headPicture +
+                ", stuId=" + stuId +
                 '}';
     }
 }

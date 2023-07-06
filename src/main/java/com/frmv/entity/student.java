@@ -11,12 +11,12 @@ public class student {
     private int id;
     private String name;
     private String gender;
-    private String id_number;
+    private String idNumber;
     private String region;
     private Date birthday;
     private String major;
     private String interests;
-    private String report_time;
+    private String reportTime;
 
 
     public int getId() {
@@ -43,12 +43,12 @@ public class student {
         this.gender = gender;
     }
 
-    public String getId_number() {
-        return id_number;
+    public String getIdNumber() {
+        return idNumber;
     }
 
-    public void setId_number(String id_number) {
-        this.id_number = id_number;
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
     }
 
     public String getRegion() {
@@ -83,12 +83,12 @@ public class student {
         this.interests = interests;
     }
 
-    public String getReport_time() {
-        return report_time;
+    public String getReportTime() {
+        return reportTime;
     }
 
-    public void setReport_time(String report_time) {
-        this.report_time = report_time;
+    public void setReportTime(String reportTime) {
+        this.reportTime = reportTime;
     }
 
     @Override
@@ -97,12 +97,12 @@ public class student {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
-                ", id_number='" + id_number + '\'' +
+                ", idNumber='" + idNumber + '\'' +
                 ", region='" + region + '\'' +
                 ", birthday=" + birthday +
                 ", major='" + major + '\'' +
                 ", interests='" + interests + '\'' +
-                ", report_time='" + report_time + '\'' +
+                ", reportTime='" + reportTime + '\'' +
                 '}';
     }
 }

@@ -39,15 +39,15 @@ public class studentController {
         student student = new student();
         student.setName(bind.getName());
         student.setGender(bind.getGender());
-        student.setId_number(bind.getId_number());
+        student.setIdNumber(bind.getIdNumber());
         student.setRegion(bind.getRegion());
         student.setBirthday(bind.getBirthday());
         student.setMajor(bind.getMajor());
-        student.setReport_time(bind.getReport_time());
+        student.setReportTime(bind.getReportTime());
         String phone = bind.getPhone();
         try {
             int i = stuMapper.insert(student);
-            int id = stuMapper.queryID(student.getId_number());
+            int id = stuMapper.queryID(student.getIdNumber());
             student.setId(id);
             int j = stuMapper.bind(id, phone);
             if (i <= 0) {
@@ -77,7 +77,7 @@ public class studentController {
         result res = new result();
         try{
             int stu_id = accMapper.queryStu_id(account.getPhone());
-            if (stu_id == 0) {
+            if (stu_id < 0) {
                 res.setStatus(true);
                 res.setResult(0);
                 return res;
