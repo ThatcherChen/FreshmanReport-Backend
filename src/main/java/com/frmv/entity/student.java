@@ -1,10 +1,9 @@
 package com.frmv.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Objects;
 
 @ApiModel(value = "student", description = "学生信息")
 public class student {
@@ -14,10 +13,42 @@ public class student {
     private String idNumber;
     private String region;
     private Date birthday;
+    private String college;
     private String major;
+    private String degree;
     private String interests;
     private String reportTime;
+    private String traffic;
 
+    public student(){};
+
+    public student(student student) {
+        this.id = student.id;
+        this.name = student.name;
+        this.gender = student.gender;
+        this.idNumber = student.idNumber;
+        this.region = student.region;
+        this.birthday = student.birthday;
+        this.college = student.college;
+        this.major = student.major;
+        this.degree = student.degree;
+        this.interests = student.interests;
+        this.reportTime = student.reportTime;
+        this.traffic = student.traffic;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        student student = (student) o;
+        return id == student.id && Objects.equals(name, student.name) && Objects.equals(gender, student.gender) && Objects.equals(idNumber, student.idNumber) && Objects.equals(region, student.region) && Objects.equals(birthday, student.birthday) && Objects.equals(college, student.college) && Objects.equals(major, student.major) && Objects.equals(degree, student.degree) && Objects.equals(interests, student.interests) && Objects.equals(reportTime, student.reportTime) && Objects.equals(traffic, student.traffic);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, gender, idNumber, region, birthday, college, major, degree, interests, reportTime, traffic);
+    }
 
     public int getId() {
         return id;
@@ -67,12 +98,28 @@ public class student {
         this.birthday = birthday;
     }
 
+    public String getCollege() {
+        return college;
+    }
+
+    public void setCollege(String college) {
+        this.college = college;
+    }
+
     public String getMajor() {
         return major;
     }
 
     public void setMajor(String major) {
         this.major = major;
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
     }
 
     public String getInterests() {
@@ -91,18 +138,12 @@ public class student {
         this.reportTime = reportTime;
     }
 
-    @Override
-    public String toString() {
-        return "student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", gender='" + gender + '\'' +
-                ", idNumber='" + idNumber + '\'' +
-                ", region='" + region + '\'' +
-                ", birthday=" + birthday +
-                ", major='" + major + '\'' +
-                ", interests='" + interests + '\'' +
-                ", reportTime='" + reportTime + '\'' +
-                '}';
+    public String getTraffic() {
+        return traffic;
     }
+
+    public void setTraffic(String traffic) {
+        this.traffic = traffic;
+    }
+
 }

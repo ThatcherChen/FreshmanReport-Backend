@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Api(tags = "student表接口")
 @RestController
@@ -43,7 +41,11 @@ public class studentController {
         student.setRegion(bind.getRegion());
         student.setBirthday(bind.getBirthday());
         student.setMajor(bind.getMajor());
+        student.setInterests(bind.getInterests());
         student.setReportTime(bind.getReportTime());
+        student.setCollege(bind.getCollege());
+        student.setDegree(bind.getDegree());
+        student.setTraffic(bind.getTraffic());
         String phone = bind.getPhone();
         try {
             int i = stuMapper.insert(student);
@@ -97,7 +99,7 @@ public class studentController {
     @ApiOperation(value = "查询已完成信息收集的人数", notes = "输入: 无")
     @GetMapping("/countNumber")
     public int countNumber(){
-        return stuMapper.countNumber()-1;
+        return stuMapper.countNumber();
     }
 
     @ApiOperation(value = "查询男女人数", notes = "输入: 无")
@@ -106,16 +108,54 @@ public class studentController {
         return stuMapper.countGender();
     }
 
+    @ApiOperation(value = "查询各学院人数", notes = "输入: 无")
+    @GetMapping("/countCollege")
+    public List<college> countCollege() {
+        return stuMapper.countCollege();
+    }
+
+    @ApiOperation(value = "查询各学院各性别人数", notes = "输入: 无")
+    @GetMapping("/countCollegeGender")
+    public List<collegeGender> countCollegeGender() {
+        return stuMapper.countCollegeGender();
+    }
+
+    @ApiOperation(value = "查询学院各学位人数", notes = "输入: 学院缩写")
+    @GetMapping("/countCollegeDegree")
+    public List<collegeDegree> countCollegeDegree(String name) {
+        switch (name) {
+            case "cs": return stuMapper.countOneCollegeDegree("计算机学院");
+            case "sw": return stuMapper.countOneCollegeDegree("软件学院");
+            case "tx": return stuMapper.countOneCollegeDegree("微电子与通信学院");
+            case "ee": return stuMapper.countOneCollegeDegree("电气工程及自动化学院");
+            case "bs": return stuMapper.countOneCollegeDegree("商学院");
+            case "mc": return stuMapper.countOneCollegeDegree("机械工程及自动化学院");
+            default: return stuMapper.countCollegeDegree();
+        }
+    }
+
     @ApiOperation(value = "查询各专业人数", notes = "输入: 无")
     @GetMapping("/countMajor")
     public List<major> countMajor() {
         return stuMapper.countMajor();
     }
 
-    @ApiOperation(value = "查询各专业性别人数", notes = "输入: 无")
+    @ApiOperation(value = "查询各专业各性别人数", notes = "输入: 无")
     @GetMapping("/countMajorGender")
     public List<majorGender> countMajorGender() {
         return stuMapper.countMajorGender();
+    }
+
+    @ApiOperation(value = "查询各学位人数", notes = "输入: 无")
+    @GetMapping("/countDegree")
+    public List<degree> countDegree() {
+        return stuMapper.countDegree();
+    }
+
+    @ApiOperation(value = "查询各交通方式报道人数", notes = "输入: 无")
+    @GetMapping("/countTraffic")
+    public List<traffic> countTraffic() {
+        return stuMapper.countTraffic();
     }
 
     @ApiOperation(value = "查询各兴趣人数", notes = "输入: 无")
@@ -167,6 +207,108 @@ public class studentController {
             batch = 10;
         }
         return stuMapper.queryBatchStudent(batch);
+    }
+
+    @ApiOperation(value = "查询兴趣爱好相似的其他学生", notes = "输入: 学生对象")
+    @PostMapping("/querySimilarInterest")
+    public result querySimilarInterest(@RequestBody account account) {
+        result res = new result();
+        try{
+            int stu_id = accMapper.queryStu_id(account.getPhone());
+            student stu = stuMapper.queryStudent(stu_id);
+            String inputInterests = stu.getInterests();
+            Set<String> inputInterestsSet = new HashSet<>(Arrays.asList(inputInterests.split(",")));
+
+            List<student> allStudents = stuMapper.selectList(null);
+            List<scoredStudent> scoredStudents = allStudents.stream()
+                    .map(scoredStudent::new) // 使用 Student 创建 ScoredStudent
+                    .filter(student -> student.getId() != stu.getId()) // 排除目标学生
+                    .collect(Collectors.toList());
+
+            scoredStudents.forEach(scoredStudent -> {
+                String interests = scoredStudent.getInterests();
+                if (interests == null) {
+                    scoredStudent.setScore(0);
+                } else {
+                    Set<String> studentInterestsSet = new HashSet<>(Arrays.asList(interests.split(",")));
+                    studentInterestsSet.retainAll(inputInterestsSet);
+                    scoredStudent.setScore(studentInterestsSet.size());
+                }
+            });
+
+            // 按照分数排序，并过滤掉分数为零的学生
+            List<scoredStudent> sortedStudents = scoredStudents.stream()
+                    .filter(scoredStudent -> scoredStudent.getScore() > 0)
+                    .sorted(Comparator.comparing(scoredStudent::getScore).reversed())
+                    .collect(Collectors.toList());
+
+            sortedStudents.forEach(sortedStudent -> {
+                int id = sortedStudent.getId();
+                account account1 = accMapper.queryAccountByID(id);
+                sortedStudent.setHeadPicture(account1.getHeadPicture());
+            });
+
+            res.setStatus(true);
+            res.setResult(sortedStudents);
+            return res;
+        } catch (Exception e){
+            res.setStatus(false);
+            res.setResult("出现异常: " + e);
+        }
+        return res;
+    }
+
+    @ApiOperation(value = "查询来源地区相似的其他学生", notes = "输入: 学生对象")
+    @PostMapping("/querySimilarRegion")
+    public result querySimilarRegion(@RequestBody account account) {
+        result res = new result();
+            try{
+            int stu_id = accMapper.queryStu_id(account.getPhone());
+            student stu = stuMapper.queryStudent(stu_id);
+            String targetRegion = stu.getRegion();
+            Set<String> inputRegionSet = new HashSet<>(Arrays.asList(targetRegion.split("-")));
+
+            List<student> allStudents = stuMapper.selectList(null);
+            List<scoredStudent> scoredStudents = allStudents.stream()
+                    .map(scoredStudent::new)
+                    .filter(student -> student.getId() != stu.getId()) // 排除目标学生
+                    .filter(student -> {
+                        String studentRegion = student.getRegion();
+                        if (studentRegion != null) {
+                            String studentFirstRegion = studentRegion.split("-")[0];
+                            String targetFirstRegion = targetRegion.split("-")[0];
+                            return studentFirstRegion.equals(targetFirstRegion);
+                        }
+                        return false;
+                    })
+                    .collect(Collectors.toList());
+
+            scoredStudents.forEach(scoredStudent -> {
+                Set<String> studentRegionSet = new HashSet<>(Arrays.asList(scoredStudent.getRegion().split("-")));
+                studentRegionSet.retainAll(inputRegionSet);
+                scoredStudent.setScore(studentRegionSet.size());
+            });
+
+            // 按照分数排序，并过滤掉分数为零的学生
+            List<scoredStudent> sortedStudents = scoredStudents.stream()
+                    .filter(scoredStudent -> scoredStudent.getScore() > 0)
+                    .sorted(Comparator.comparing(scoredStudent::getScore).reversed())
+                    .collect(Collectors.toList());
+
+            sortedStudents.forEach(sortedStudent -> {
+                int id = sortedStudent.getId();
+                account account1 = accMapper.queryAccountByID(id);
+                sortedStudent.setHeadPicture(account1.getHeadPicture());
+            });
+
+            res.setStatus(true);
+            res.setResult(sortedStudents);
+            return res;
+        } catch (Exception e){
+            res.setStatus(false);
+            res.setResult("出现异常: " + e);
+        }
+        return res;
     }
 
 }

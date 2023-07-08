@@ -10,6 +10,7 @@ public class account {
     private String phone;
     private int headPicture;
     private int stuId;
+    private int likes;
 
     public int getId() {
         return id;
@@ -59,15 +60,12 @@ public class account {
         this.stuId = stuId;
     }
 
-    @Override
-    public String toString() {
-        return "account{" +
-                "id=" + id +
-                ", nickname='" + nickname + '\'' +
-                ", password='" + password + '\'' +
-                ", phone='" + phone + '\'' +
-                ", headPicture=" + headPicture +
-                ", stuId=" + stuId +
-                '}';
+    public int getLikes() {
+        return likes;
     }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
 }

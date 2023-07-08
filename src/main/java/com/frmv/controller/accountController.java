@@ -47,9 +47,8 @@ public class accountController {
     @PostMapping("/signup")
     public result signup(@RequestBody account account){
         result res = new result();
-        System.out.println(account.toString());
         try{
-            int i  = mapper.insert(account);
+            int i = mapper.signup(account, "i");
             if(i > 0){
                 res.setStatus(true);
                 res.setResult("注册成功！");
@@ -106,6 +105,30 @@ public class accountController {
             }
             res.setStatus(false);
             res.setResult("修改失败！");
+            return res;
+        } catch (Exception e){
+            e.printStackTrace();
+            res.setStatus(false);
+            res.setResult("出现异常: " + e.getMessage());
+            return res;
+        }
+    }
+
+    @ApiOperation(value = "修改头像", notes = "param: account对象")
+    @PostMapping("/chooseHeadPicture")
+    public result chooseHeadPicture(@RequestBody account account){
+        result res = new result();
+        int headPicture = account.getHeadPicture();
+        String phone = account.getPhone();
+        try{
+            int i  = mapper.chooseHeadPicture(headPicture, phone);
+            if(i > 0){
+                res.setStatus(true);
+                res.setResult("修改头像成功！");
+                return res;
+            }
+            res.setStatus(false);
+            res.setResult("修改头像失败！");
             return res;
         } catch (Exception e){
             e.printStackTrace();

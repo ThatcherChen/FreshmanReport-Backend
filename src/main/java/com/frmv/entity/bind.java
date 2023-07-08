@@ -16,6 +16,9 @@ public class bind {
     private String interests;
     private String reportTime;
     private String phone;
+    private String college;
+    private String degree;
+    private String traffic;
 
     public int getId() {
         return id;
@@ -97,19 +100,27 @@ public class bind {
         this.phone = phone;
     }
 
-    @Override
-    public String toString() {
-        return "bind{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", gender='" + gender + '\'' +
-                ", idNumber='" + idNumber + '\'' +
-                ", region='" + region + '\'' +
-                ", birthday=" + birthday +
-                ", major='" + major + '\'' +
-                ", interests='" + interests + '\'' +
-                ", reportTime='" + reportTime + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
+    public String getCollege() {
+        return college;
+    }
+
+    public void setCollege(String college) {
+        this.college = college;
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
+    public String getTraffic() {
+        return traffic;
+    }
+
+    public void setTraffic(String traffic) {
+        this.traffic = traffic;
     }
 }
