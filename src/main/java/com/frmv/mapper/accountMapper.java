@@ -35,4 +35,7 @@ public interface accountMapper extends BaseMapper<account> {
 
     @Update("update account set head_picture=#{headPicture} where phone=#{phone}")
     int chooseHeadPicture(int headPicture, String phone);
+
+    @Update("update account set likes = likes + 1 where phone=#{phone}")
+    int changeLikes(String phone);
 }

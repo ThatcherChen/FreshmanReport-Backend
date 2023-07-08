@@ -1,5 +1,10 @@
 package com.frmv.entity;
 
+import io.swagger.annotations.ApiModel;
+import lombok.Data;
+
+@Data
+@ApiModel(value = "scoredStudent", description = "查询相似兴趣和地区的学生")
 public class scoredStudent extends student {
     private int score;
     private int headPicture;

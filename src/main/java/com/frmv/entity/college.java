@@ -1,5 +1,10 @@
 package com.frmv.entity;
 
+import io.swagger.annotations.ApiModel;
+import lombok.Data;
+
+@Data
+@ApiModel(value = "college", description = "学院")
 public class college {
     private String college;
     private Long count;

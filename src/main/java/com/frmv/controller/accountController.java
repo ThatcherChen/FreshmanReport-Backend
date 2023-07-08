@@ -3,6 +3,7 @@ package com.frmv.controller;
 import com.frmv.entity.account;
 import com.frmv.entity.change;
 import com.frmv.entity.result;
+import com.frmv.entity.student;
 import com.frmv.mapper.accountMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -129,6 +130,31 @@ public class accountController {
             }
             res.setStatus(false);
             res.setResult("修改头像失败！");
+            return res;
+        } catch (Exception e){
+            e.printStackTrace();
+            res.setStatus(false);
+            res.setResult("出现异常: " + e.getMessage());
+            return res;
+        }
+    }
+
+    @ApiOperation(value = "修改点赞数", notes = "param: account对象")
+    @PostMapping("/changeLikes")
+    public result changeLikes(@RequestBody student student){
+        result res = new result();
+        int id = student.getId();
+        account account = mapper.queryAccountByID(id);
+        String phone = account.getPhone();
+        try{
+            int i  = mapper.changeLikes(phone);
+            if(i > 0){
+                res.setStatus(true);
+                res.setResult("点赞成功！");
+                return res;
+            }
+            res.setStatus(false);
+            res.setResult("点赞失败！");
             return res;
         } catch (Exception e){
             e.printStackTrace();

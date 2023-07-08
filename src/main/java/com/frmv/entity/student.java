@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModel;
 import java.util.Date;
 import java.util.Objects;
 
-@ApiModel(value = "student", description = "学生信息")
+@ApiModel(value = "student", description = "学生")
 public class student {
     private int id;
     private String name;

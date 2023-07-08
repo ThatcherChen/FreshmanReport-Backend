@@ -1,9 +1,11 @@
 package com.frmv.entity;
 
 import io.swagger.annotations.ApiModel;
+import lombok.Data;
 
 import java.util.Date;
 
+@Data
 @ApiModel(value = "bind", description = "绑定学生和账号")
 public class bind {
     private int id;

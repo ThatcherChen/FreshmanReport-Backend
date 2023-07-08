@@ -1,7 +1,9 @@
 package com.frmv.entity;
 
 import io.swagger.annotations.ApiModel;
+import lombok.Data;
 
+@Data
 @ApiModel(value = "account", description = "账号")
 public class account {
     private int id;

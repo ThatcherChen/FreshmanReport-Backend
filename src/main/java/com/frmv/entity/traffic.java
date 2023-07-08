@@ -1,5 +1,10 @@
 package com.frmv.entity;
 
+import io.swagger.annotations.ApiModel;
+import lombok.Data;
+
+@Data
+@ApiModel(value = "traffic", description = "报道交通方式")
 public class traffic {
     private String traffic;
     private Long count;

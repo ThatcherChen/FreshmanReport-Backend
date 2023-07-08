@@ -79,9 +79,9 @@ public class studentController {
         result res = new result();
         try{
             int stu_id = accMapper.queryStu_id(account.getPhone());
-            if (stu_id < 0) {
-                res.setStatus(true);
-                res.setResult(0);
+            if (stu_id <= 0) {
+                res.setStatus(false);
+                res.setResult("未完成信息收集");
                 return res;
             }
             student student = stuMapper.queryStudent(stu_id);
@@ -240,6 +240,7 @@ public class studentController {
             List<scoredStudent> sortedStudents = scoredStudents.stream()
                     .filter(scoredStudent -> scoredStudent.getScore() > 0)
                     .sorted(Comparator.comparing(scoredStudent::getScore).reversed())
+                    .limit(100)
                     .collect(Collectors.toList());
 
             sortedStudents.forEach(sortedStudent -> {
