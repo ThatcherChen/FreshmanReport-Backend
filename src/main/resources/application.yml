@@ -17,9 +17,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/frmv-db?useSSL=false
-    username: root
-    password: atri
+    url: jdbc:mysql://localhost:3306/frmv_db?useSSL=false
+    username: frmv_admin
+    password: frmv_test
 
 mybatis-plus:
   configuration:
