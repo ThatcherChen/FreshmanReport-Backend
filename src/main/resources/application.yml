@@ -19,7 +19,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/frmv-db?useSSL=false
     username: root
-    password: atri
+    password: frmv-test
 
 mybatis-plus:
   configuration:
