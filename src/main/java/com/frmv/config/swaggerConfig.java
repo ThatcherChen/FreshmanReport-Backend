@@ -22,7 +22,7 @@ public class swaggerConfig {
     private ApiInfo apiInfo() {
             return new ApiInfoBuilder()
             .title("FRMV") //标题
-            .description("新生报到数据监控可视化\nip和端口：192.168.1.163:8083\n192.168.137.49") //描述
+            .description("新生报到数据监控可视化系统") //描述
             .version("1.0")
             .build();
     }
