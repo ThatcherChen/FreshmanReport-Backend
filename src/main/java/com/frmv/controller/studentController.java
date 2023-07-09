@@ -73,7 +73,7 @@ public class studentController {
         }
     }
 
-    @ApiOperation(value = "查询学生是否完成信息收集，是则返回学生信息，否则返回0", notes = "输入: phone")
+    @ApiOperation(value = "查询学生是否完成信息收集，是则返回学生信息", notes = "输入: phone")
     @PostMapping("/queryStudent")
     public result queryStudent(@RequestBody account account){
         result res = new result();
