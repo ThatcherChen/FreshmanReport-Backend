@@ -6,11 +6,14 @@ import com.frmv.entity.result;
 import com.frmv.entity.student;
 import com.frmv.mapper.accountMapper;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -20,7 +23,7 @@ public class accountController {
     @Autowired
     private accountMapper mapper;
 
-    @ApiOperation(value = "登录账号", notes = "输入: phone, password")
+    @ApiOperation(value = "登录账号")
     @PostMapping("/login")
     public result login(@RequestBody account account){
         result res = new result();
@@ -44,7 +47,7 @@ public class accountController {
         }
     }
 
-    @ApiOperation(value = "注册账号", notes = "param: account对象")
+    @ApiOperation(value = "注册账号")
     @PostMapping("/signup")
     public result signup(@RequestBody account account){
         result res = new result();
@@ -66,7 +69,7 @@ public class accountController {
         }
     }
 
-    @ApiOperation(value = "注销账号", notes = "param: phone")
+    @ApiOperation(value = "注销账号")
     @PostMapping("/logoff")
     public result logoff(@RequestBody account account){
         result res = new result();
@@ -88,7 +91,7 @@ public class accountController {
         }
     }
 
-    @ApiOperation(value = "修改信息", notes = "param: account对象, oldPhone")
+    @ApiOperation(value = "修改信息")
     @PostMapping("/change")
     public result change(@RequestBody change change){
         result res = new result();
@@ -115,7 +118,7 @@ public class accountController {
         }
     }
 
-    @ApiOperation(value = "修改头像", notes = "param: account对象")
+    @ApiOperation(value = "修改头像")
     @PostMapping("/chooseHeadPicture")
     public result chooseHeadPicture(@RequestBody account account){
         result res = new result();
@@ -139,7 +142,7 @@ public class accountController {
         }
     }
 
-    @ApiOperation(value = "修改点赞数", notes = "param: account对象")
+    @ApiOperation(value = "修改点赞数")
     @PostMapping("/changeLikes")
     public result changeLikes(@RequestBody student student){
         result res = new result();

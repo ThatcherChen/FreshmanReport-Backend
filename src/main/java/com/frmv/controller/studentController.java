@@ -4,6 +4,7 @@ import com.frmv.entity.*;
 import com.frmv.mapper.accountMapper;
 import com.frmv.mapper.studentMapper;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -24,13 +25,13 @@ public class studentController {
     @Autowired
     private accountMapper accMapper;
 
-    @ApiOperation(value = "查询收集到的所有学生信息", notes = "输入: 无")
+    @ApiOperation(value = "查询收集到的所有学生信息")
     @GetMapping("/queryAll")
     public List<student> queryAll() {
         return stuMapper.selectList(null);
     }
 
-    @ApiOperation(value = "信息收集并且自动绑定账号", notes = "输入: student对象+phone")
+    @ApiOperation(value = "信息收集并且自动绑定账号")
     @PostMapping("/infoCollect")
     public result infoCollect(@RequestBody bind bind) {
         result res = new result();
@@ -73,7 +74,7 @@ public class studentController {
         }
     }
 
-    @ApiOperation(value = "查询学生是否完成信息收集，是则返回学生信息", notes = "输入: phone")
+    @ApiOperation(value = "查询学生是否完成信息收集，是则返回学生信息")
     @PostMapping("/queryStudent")
     public result queryStudent(@RequestBody account account){
         result res = new result();
@@ -96,31 +97,32 @@ public class studentController {
         }
     }
 
-    @ApiOperation(value = "查询已完成信息收集的人数", notes = "输入: 无")
+    @ApiOperation(value = "查询已完成信息收集的人数")
     @GetMapping("/countNumber")
     public int countNumber(){
         return stuMapper.countNumber();
     }
 
-    @ApiOperation(value = "查询男女人数", notes = "输入: 无")
+    @ApiOperation(value = "查询男女人数")
     @GetMapping("/countGender")
     public List<gender> countGender() {
         return stuMapper.countGender();
     }
 
-    @ApiOperation(value = "查询各学院人数", notes = "输入: 无")
+    @ApiOperation(value = "查询各学院人数")
     @GetMapping("/countCollege")
     public List<college> countCollege() {
         return stuMapper.countCollege();
     }
 
-    @ApiOperation(value = "查询各学院各性别人数", notes = "输入: 无")
+    @ApiOperation(value = "查询各学院各性别人数")
     @GetMapping("/countCollegeGender")
     public List<collegeGender> countCollegeGender() {
         return stuMapper.countCollegeGender();
     }
 
-    @ApiOperation(value = "查询学院各学位人数", notes = "输入: 学院缩写")
+    @ApiOperation(value = "查询学院各学位人数")
+    @ApiImplicitParam(name="name",value="学院缩写名",required=true,dataType = "String")
     @GetMapping("/countCollegeDegree")
     public List<collegeDegree> countCollegeDegree(String name) {
         switch (name) {
@@ -134,31 +136,31 @@ public class studentController {
         }
     }
 
-    @ApiOperation(value = "查询各专业人数", notes = "输入: 无")
+    @ApiOperation(value = "查询各专业人数")
     @GetMapping("/countMajor")
     public List<major> countMajor() {
         return stuMapper.countMajor();
     }
 
-    @ApiOperation(value = "查询各专业各性别人数", notes = "输入: 无")
+    @ApiOperation(value = "查询各专业各性别人数")
     @GetMapping("/countMajorGender")
     public List<majorGender> countMajorGender() {
         return stuMapper.countMajorGender();
     }
 
-    @ApiOperation(value = "查询各学位人数", notes = "输入: 无")
+    @ApiOperation(value = "查询各学位人数")
     @GetMapping("/countDegree")
     public List<degree> countDegree() {
         return stuMapper.countDegree();
     }
 
-    @ApiOperation(value = "查询各交通方式报道人数", notes = "输入: 无")
+    @ApiOperation(value = "查询各交通方式报道人数")
     @GetMapping("/countTraffic")
     public List<traffic> countTraffic() {
         return stuMapper.countTraffic();
     }
 
-    @ApiOperation(value = "查询各兴趣人数", notes = "输入: 无")
+    @ApiOperation(value = "查询各兴趣人数")
     @GetMapping("/countInterest")
     public List<interests> countInterest() {
         List<interests> numbers = new ArrayList<>();
@@ -180,7 +182,7 @@ public class studentController {
         return numbers;
     }
 
-    @ApiOperation(value = "查询各地区来源人数", notes = "输入: 无")
+    @ApiOperation(value = "查询各地区来源人数")
     @GetMapping("/countRegion")
     public List<region> countRegion() {
         List<region> numbers = new ArrayList<>();
@@ -200,7 +202,8 @@ public class studentController {
         return numbers;
     }
 
-    @ApiOperation(value = "批量查询student信息", notes = "输入: 无")
+    @ApiOperation(value = "批量查询student信息")
+    @ApiImplicitParam(name="batch",value="批量大小",required=false,dataType = "Integer")
     @GetMapping("/queryBatchStudent")
     public List<student> queryBatchStudent(Integer batch) {
         if (batch == null) {
@@ -209,7 +212,7 @@ public class studentController {
         return stuMapper.queryBatchStudent(batch);
     }
 
-    @ApiOperation(value = "查询兴趣爱好相似的其他学生", notes = "输入: 学生对象")
+    @ApiOperation(value = "查询兴趣爱好相似的其他学生")
     @PostMapping("/querySimilarInterest")
     public result querySimilarInterest(@RequestBody account account) {
         result res = new result();
@@ -259,7 +262,7 @@ public class studentController {
         return res;
     }
 
-    @ApiOperation(value = "查询来源地区相似的其他学生", notes = "输入: 学生对象")
+    @ApiOperation(value = "查询来源地区相似的其他学生")
     @PostMapping("/querySimilarRegion")
     public result querySimilarRegion(@RequestBody account account) {
         result res = new result();
